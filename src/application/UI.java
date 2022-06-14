@@ -29,7 +29,7 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-	
+
 	public static void clearScreen() {
 		System.out.println("\033[H\033[2J");
 		System.out.flush();
@@ -42,7 +42,7 @@ public class UI {
 			int row = Integer.parseInt(s.substring(1));
 			return new ChessPosition(column, row);
 		} catch (RuntimeException e) {
-			throw new  InputMismatchException("Error reading chessPosition");
+			throw new InputMismatchException("Error reading chessPosition");
 		}
 	}
 
@@ -50,16 +50,30 @@ public class UI {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j]);
+				printPiece(pieces[i][j], false);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
 
-	private static void printPiece(ChessPiece piece) {
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMovie) {
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j], possibleMovie[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+
+	private static void printPiece(ChessPiece piece, boolean background) {
+		if (background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
 		if (piece == null) {
-			System.out.print("-");
+			System.out.print("-" + ANSI_RESET);
 		} else {
 			if (piece.getColor() == Color.WHITE) {
 				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
@@ -69,4 +83,5 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
+
 }
