@@ -29,7 +29,7 @@ public class ChessPosition {
 	}
 	
 	protected static ChessPosition fromPosition(Position position) {
-		char col = (char)('a' - position.getColumn());
+		char col = (char)('a' + position.getColumn());
 		char row = (char)(8 - position.getRow());
 		return new ChessPosition(col, row);
 	}
