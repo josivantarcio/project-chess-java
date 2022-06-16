@@ -1,6 +1,5 @@
 package chess;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -133,22 +132,26 @@ public class ChessMatch {
 		Position pos = promoted.getChessPosition().toPositioin();
 		Piece p = board.removePiece(pos);
 		piecesOntheBoard.remove(p);
-		
+
 		ChessPiece newPiece = newPiece(type, promoted.getColor());
 		board.placePiece(newPiece, pos);
 		piecesOntheBoard.add(newPiece);
-		
+
 		return newPiece;
 	}
 
 	private ChessPiece newPiece(String type, Color color) {
-		if(type.equals("B")) return new Bishop(board, color);
-		if(type.equals("N")) return new Knight(board, color);
-		if(type.equals("Q")) return new Queen(board, color);
-		if(type.equals("R")) return new Rook(board, color);
+		if (type.equals("B"))
+			return new Bishop(board, color);
+		if (type.equals("N"))
+			return new Knight(board, color);
+		if (type.equals("Q"))
+			return new Queen(board, color);
+		if (type.equals("R"))
+			return new Rook(board, color);
 		return null;
 	}
-	
+
 	private Piece makeMove(Position source, Position target) {
 		ChessPiece p = (ChessPiece) board.removePiece(source);
 		p.increaseMoveCount();
@@ -165,7 +168,7 @@ public class ChessMatch {
 		 */
 		if (p instanceof King && target.getColumn() == source.getColumn() + 2) {
 			Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
-			Position targetT = new Position(target.getRow(), target.getColumn() + 1);
+			Position targetT = new Position(source.getRow(), source.getColumn() + 1);
 			ChessPiece rook = (ChessPiece) board.removePiece(sourceT);
 			board.placePiece(rook, targetT);
 			rook.increaseMoveCount();
@@ -176,7 +179,7 @@ public class ChessMatch {
 		 */
 		if (p instanceof King && target.getColumn() == source.getColumn() - 2) {
 			Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
-			Position targetT = new Position(target.getRow(), target.getColumn() - 1);
+			Position targetT = new Position(source.getRow(), source.getColumn() - 1);
 			ChessPiece rook = (ChessPiece) board.removePiece(sourceT);
 			board.placePiece(rook, targetT);
 			rook.increaseMoveCount();
