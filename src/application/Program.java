@@ -12,7 +12,7 @@ import chess.exception.ChessException;
 
 public class Program {
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		ChessMatch cm = new ChessMatch();
 		List<ChessPiece> captured = new ArrayList<ChessPiece>();
@@ -20,7 +20,7 @@ public class Program {
 		while (!cm.getCheckMate()) {
 			try {
 				UI.clearScreen();
-				UI.printMatch(cm, captured );
+				UI.printMatch(cm, captured);
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(scan);
@@ -38,13 +38,17 @@ public class Program {
 				if (capturedPiece != null) {
 					captured.add(capturedPiece);
 				}
-				
-			} 
-			catch (ChessException e) {
+
+				if (cm.getPromoted() != null) {
+					System.out.print("Enter piece for promotion [B/N/Q/R]: ");
+					String type = scan.nextLine();
+					cm.replacePromotedPiece(type);
+				}
+
+			} catch (ChessException e) {
 				System.out.println(e.getMessage());
 				scan.nextLine();
-			} 
-			catch (InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				scan.nextLine();
 			}
