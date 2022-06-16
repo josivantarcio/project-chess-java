@@ -37,8 +37,9 @@ public class Pawn extends ChessPiece {
 			if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
 			}
+
 			// piece Black
-			else {
+			if (getColor() == Color.BLACK) {
 				p.setValues(position.getRow() + 1, position.getColumn());
 				if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
 					mat[p.getRow()][p.getColumn()] = true;
