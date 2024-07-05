@@ -13,6 +13,7 @@ import chess.exception.ChessException;
 /**
  * A classe Program é o ponto de entrada para o aplicativo de xadrez.
  * Ele gerencia a lógica do jogo e a interação do usuário.
+ * @Josevan Oliveira
  */
 public class Program {
 
